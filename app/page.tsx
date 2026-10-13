@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { Camera, ArrowRight, FileText, UserCheck, Smartphone, Users } from 'lucide-react';
 import './globals.css';
+
 export default function SplitCheck() {
   const [permissionGranted, setPermissionGranted] = useState(false);
 
@@ -57,7 +58,7 @@ export default function SplitCheck() {
         {/* Главная мятная кнопка */}
         <button 
           onClick={handleCameraClick}
-          className="w-full bg-[#9bf0cb] text-[#0b0f12] rounded-[32px] p-8 flex flex-col items-center justify-center gap-4 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-[#9bf0cb]/10 relative group mb-4"
+          className="w-full bg-[#9bf0cb] text-[#0b0f12] rounded-[32px] p-8 flex flex-col items-center justify-center gap-4 transition-all duration-300 hover:scale-[1.01] active:scale-[0.99] shadow-lg shadow-[#9bf0cb]/10 relative group mb-4"
         >
           <div className="absolute top-6 right-6 bg-[#0b0f12]/5 p-2 rounded-full group-hover:translate-x-1 transition-transform">
             <ArrowRight className="w-5 h-5 text-[#0b0f12]" />
@@ -72,7 +73,7 @@ export default function SplitCheck() {
         </button>
 
         {/* Вторая кнопка */}
-        <button className="w-full bg-[#141b1f] border border-[#1e2930] rounded-2xl py-5 px-6 flex items-center justify-center gap-3 transition-colors hover:bg-[#1a2329] active:scale-[0.99] mb-6">
+        <button className="w-full bg-[#141b1f] border border-[#1e2930] rounded-2xl py-5 px-6 flex items-center justify-center gap-3 transition-colors hover:bg-[#1a2329] active:scale-[0.98] mb-6">
           <FileText className="w-5 h-5 text-gray-400" />
           <span className="font-semibold text-gray-200">Ввести данные вручную</span>
         </button>
