@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { Camera, ArrowRight, FileText, UserCheck, Smartphone, Users } from 'lucide-react';
-
+import './globals.css';
 export default function SplitCheck() {
   const [permissionGranted, setPermissionGranted] = useState(false);
 
