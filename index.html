@@ -4,271 +4,180 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Сплит-Чек — всё по-честному</title>
-    <script src="https://tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide"></script>
-    
+    <style>
+        body { background-color: #0b0f12; color: #ffffff; min-height: screen; font-family: sans-serif; margin: 0; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; box-sizing: border-box; }
+        .container { flex: 1; display: flex; flex-direction: column; justify-content: space-between; w-full: 100%; max-width: 440px; margin: 0 auto; }
+        .header { display: flex; justify-content: space-between; items-center: center; width: 100%; pt-4: 16px; }
+        .logo-box { background-color: #162220; padding: 10px; border-radius: 12px; border: 1px solid #233531; display: flex; align-items: center; }
+        .badge { background-color: #141b1f; padding: 6px 12px; border-radius: 9999px; border: 1px solid #1e2930; font-size: 12px; color: #9ca3af; }
+        .main-content { margin: auto 0; display: flex; flex-direction: column; align-items: center; text-align: center; }
+        .title { font-size: 36px; font-weight: 800; line-height: 1.2; margin-bottom: 16px; }
+        .mint-text { color: #34d399; }
+        .desc { color: #9ca3af; font-size: 16px; max-width: 320px; margin: 0 auto 32px; }
+        .camera-btn { w-full: 100%; background-color: #9bf0cb; color: #0b0f12; border-radius: 32px; padding: 32px; border: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; cursor: pointer; box-shadow: 0 10px 15px -3px rgba(155, 240, 203, 0.1); font-weight: bold; position: relative; width: 100%; box-sizing: border-box; }
+        .manual-btn { width: 100%; background-color: #141b1f; border: 1px solid #1e2930; border-radius: 16px; padding: 20px; color: #e5e7eb; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 12px; cursor: pointer; margin-bottom: 24px; box-sizing: border-box; }
+        .card-box { background-color: #141b1f; padding: 20px; border-radius: 16px; border: 1px solid #1e2930; margin-bottom: 16px; width: 100%; box-sizing: border-box; text-align: left; }
+        .input-sum { width: 100%; background: transparent; border: none; color: #34d399; font-size: 30px; font-weight: bold; outline: none; }
+        .grid-banks { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
+        .bank-btn { border: 2px solid #1e2930; background: transparent; color: white; border-radius: 12px; padding: 12px; cursor: pointer; display: flex; flex-direction: column; align-items: center; }
+        .bank-btn.active { border-color: #34d399; background-color: #162220; }
+        .input-card { width: 100%; background-color: #0b0f12; border: 1px solid #1e2930; border-radius: 12px; padding: 12px; color: white; margin-top: 12px; box-sizing: border-box; }
+        .counter-box { display: flex; justify-content: space-between; align-items: center; }
+        .counter-controls { display: flex; align-items: center; gap: 16px; background-color: #0b0f12; padding: 6px; border-radius: 12px; border: 1px solid #1e2930; }
+        .count-btn { background-color: #141b1f; color: white; border: none; width: 32px; height: 32px; border-radius: 8px; font-size: 20px; font-weight: bold; cursor: pointer; }
+        .result-box { background-color: #162220; padding: 24px; border-radius: 16px; border: 1px solid #233531; text-align: center; width: 100%; box-sizing: border-box; }
+        .share-btn { width: 100%; background-color: #9bf0cb; color: #0b0f12; font-weight: bold; border-radius: 12px; padding: 16px; border: none; cursor: pointer; margin-top: 24px; font-size: 16px; }
+        .hidden { display: none !important; }
+        .label { font-size: 12px; text-transform: uppercase; tracking-content: 0.05em; font-weight: 600; color: #9ca3af; margin-bottom: 8px; display: block; }
+    </style>
 </head>
-<body class="bg-[#0b0f12] text-white min-h-screen flex flex-col justify-between p-6 font-sans antialiased">
+<body>
 
-    <!-- ЭКРАН 1: ГЛАВНОЕ МЕНЮ -->
-    <div id="mainScreen" class="flex flex-col justify-between flex-1 w-full max-w-md mx-auto">
-        <!-- Шапка -->
-        <header class="flex justify-between items-center w-full pt-4">
-            <div class="flex items-center gap-2">
-                <div class="bg-[#162220] p-2.5 rounded-xl border border-[#233531]">
-                    <i data-lucide="file-text" class="w-6 h-6 text-[#34d399]"></i>
+    <div class="container">
+        <!-- ЭКРАН 1 -->
+        <div id="mainScreen" class="flex-1 display-flex flex-direction-column justify-content-between" style="display: flex; flex-direction: column; height: 100%;">
+            <header class="header">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="logo-box"><span style="color: #34d399; font-weight: bold;">🧾</span></div>
+                    <span style="font-weight: bold; font-size: 20px;">Сплит-Чек</span>
                 </div>
-                <span class="font-bold text-xl tracking-tight">Сплит-Чек</span>
-            </div>
-            <div class="flex items-center gap-1.5 bg-[#141b1f] px-3 py-1.5 rounded-full border border-[#1e2930]">
-                <span class="w-2 h-2 rounded-full bg-[#34d399] animate-pulse"></span>
-                <span class="text-xs text-gray-400 font-medium">всё по-честному</span>
-            </div>
-        </header>
+                <div class="badge"><span style="color: #34d399;">●</span> всё по-честному</div>
+            </header>
 
-        <!-- Центр -->
-        <main class="my-auto flex flex-col items-center">
-            <div class="text-center mb-8">
-                <div class="inline-flex items-center gap-2 bg-[#141b1f] px-4 py-2 rounded-xl border border-[#1e2930] mb-6">
-                    <i data-lucide="users" class="w-4 h-4 text-[#34d399]"></i>
-                    <span class="text-xs uppercase tracking-widest font-semibold text-gray-400">МЕНЬШЕ СЧЁТОВ – БОЛЬШЕ ВСТРЕЧ</span>
+            <main class="main-content">
+                <h1 class="title">Делим чек.<br><span class="mint-text">Сохраняем дружбу.</span></h1>
+                <p class="desc">Справедливо распределим расходы за пару касаний.</p>
+
+                <div id="videoContainer" class="hidden" style="width: 100%; background-color: #141b1f; border-radius: 16px; overflow: hidden; margin-bottom: 16px; aspect-ratio: 4/3; position: relative;">
+                    <video id="webcam" autoplay playsinline muted style="width: 100%; height: 100%; object-fit: cover;"></video>
+                    <button id="captureBtn" style="position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%); background-color: #34d399; color: #0b0f12; font-weight: bold; padding: 8px 24px; border: none; border-radius: 9999px; cursor: pointer;">Сделать снимок</button>
                 </div>
-                <h1 class="text-4xl font-extrabold tracking-tight leading-tight mb-4">
-                    Делим чек.<br>
-                    <span class="text-[#34d399]">Сохраняем дружбу.</span>
-                </h1>
-                <p class="text-gray-400 text-base max-w-xs mx-auto">
-                    Справедливо распределим расходы за пару касаний.
-                </p>
-            </div>
 
-            <!-- Видеоплеер камеры -->
-            <div id="videoContainer" class="w-full bg-[#141b1f] rounded-2xl border border-[#1e2930] overflow-hidden mb-4 hidden aspect-[4/3] relative">
-                <video id="webcam" autoplay playsinline muted class="w-full h-full object-cover"></video>
-                <div class="absolute bottom-4 left-0 right-0 flex justify-center">
-                    <button id="captureBtn" class="bg-[#34d399] text-[#0b0f12] font-bold px-6 py-2 rounded-full shadow-lg active:scale-95 transition-transform">Сделать снимок</button>
-                </div>
-            </div>
+                <button id="cameraBtn" class="camera-btn">
+                    <span style="font-size: 24px;">📷</span>
+                    <span style="font-size: 20px;">Сфотографировать чек</span>
+                </button>
 
-            <!-- Кнопка 1: Камера -->
-            <button id="cameraBtn" class="w-full bg-[#9bf0cb] text-[#0b0f12] rounded-[32px] p-8 flex flex-col items-center justify-center gap-4 transition-all duration-300 hover:scale-[1.01] active:scale-[0.99] shadow-lg shadow-[#9bf0cb]/10 relative group mb-4">
-                <div class="absolute top-6 right-6 bg-[#0b0f12]/5 p-2 rounded-full group-hover:translate-x-1 transition-transform">
-                    <i data-lucide="arrow-right" class="w-5 h-5 text-[#0b0f12]"></i>
-                </div>
-                <div class="bg-[#0b0f12] text-[#9bf0cb] p-5 rounded-2xl shadow-inner mt-4">
-                    <i data-lucide="camera" class="w-8 h-8"></i>
-                </div>
-                <div class="text-center mt-2">
-                    <span class="block text-2xl font-bold tracking-tight mb-1">Сфотографировать чек</span>
-                    <span class="block text-sm text-[#0b0f12]/60 font-medium">Камера распознает позиции автоматически</span>
-                </div>
-            </button>
+                <button id="manualBtn" class="manual-btn">
+                    <span>✏️</span> Ввести данные вручную
+                </button>
+            </main>
+        </div>
 
-            <!-- Кнопка 2: Ручной ввод -->
-            <button id="manualBtn" class="w-full bg-[#141b1f] border border-[#1e2930] rounded-2xl py-5 px-6 flex items-center justify-center gap-3 transition-colors hover:bg-[#1a2329] active:scale-[0.98] mb-6">
-                <i data-lucide="edit-3" class="w-5 h-5 text-[#34d399]"></i>
-                <span class="font-semibold text-gray-200">Ввести данные вручную</span>
-            </button>
+        <!-- ЭКРАН 2 -->
+        <div id="calcScreen" class="hidden">
+            <header style="display: flex; align-items: center; gap: 16px; padding-top: 16px; margin-bottom: 24px;">
+                <button id="backBtn" style="background: #141b1f; border: 1px solid #1e2930; padding: 8px 12px; border-radius: 12px; color: white; cursor: pointer; font-size: 18px;">←</button>
+                <h2 style="margin: 0; font-size: 20px;">Быстрый...</h2>
+            </header>
 
-            <div class="flex items-center gap-2 text-gray-500 text-sm">
-                <i data-lucide="user-check" class="w-4 h-4 text-[#34d399]/70"></i>
-                <span>Без регистрации и лишних хлопот</span>
-            </div>
-        </main>
-
-        <footer class="text-center text-xs text-gray-600 pb-2 border-t border-[#141b1f] pt-4">
-            <p class="max-w-xs mx-auto leading-relaxed">Быстрый способ разделить расходы без лишних споров</p>
-        </footer>
-    </div>
-
-    <!-- ЭКРАН 2: КАЛЬКУЛЯТОР И РАСЧЕТЫ -->
-    <div id="calcScreen" class="flex flex-col justify-between flex-1 w-full max-w-md mx-auto hidden">
-        <header class="flex items-center gap-4 pt-4 mb-6">
-            <button id="backBtn" class="bg-[#141b1f] border border-[#1e2930] p-2 rounded-xl text-gray-400 active:scale-95">
-                <i data-lucide="chevron-left" class="w-6 h-6"></i>
-            </button>
-            <h2 class="text-xl font-bold">Быстрый калькулятор</h2>
-        </header>
-
-        <main class="flex-1 space-y-6">
-            <!-- Поле общей суммы счета -->
-            <div class="bg-[#141b1f] p-5 rounded-2xl border border-[#1e2930]">
-                <label class="block text-xs uppercase tracking-wider font-semibold text-gray-400 mb-2">Общая сумма чека (₴)</label>
-                <input id="totalAmount" type="number" placeholder="0.00" class="w-full bg-transparent text-3xl font-bold text-[#34d399] focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none">
+            <div class="card-box">
+                <label class="label">Общая сумма чека (₴)</label>
+                <input id="totalAmount" type="number" placeholder="0.00" class="input-sum">
             </div>
 
-            <!-- Выбор банка для перевода -->
-            <div class="bg-[#141b1f] p-5 rounded-2xl border border-[#1e2930]">
-                <label class="block text-xs uppercase tracking-wider font-semibold text-gray-400 mb-3">Куда скидывать деньги?</label>
-                <div class="grid grid-cols-2 gap-3">
-                    <button id="monoBtn" class="border-2 border-[#34d399] bg-[#162220] rounded-xl py-3 flex flex-col items-center gap-1 active:scale-98">
+            <div class="card-box">
+                <label class="label">Куда скидывать деньги?</label>
+                <div class="grid-banks">
+                    <button id="monoBtn" class="bank-btn active">
                         <span class="font-bold text-sm text-white">Monobank</span>
-                        <span class="text-[10px] text-gray-400">черная карта</span>
                     </button>
-                    <button id="privatBtn" class="border-2 border-[#1e2930] bg-transparent rounded-xl py-3 flex flex-col items-center gap-1 active:scale-98">
+                    <button id="privatBtn" class="bank-btn">
                         <span class="font-bold text-sm text-white">Приват24</span>
-                        <span class="text-[10px] text-gray-400">зеленая карта</span>
                     </button>
                 </div>
-                <input id="cardNumber" type="text" placeholder="Введите номер карты получателя" class="w-full bg-[#0b0f12] border border-[#1e2930] rounded-xl px-4 py-3 text-sm mt-3 focus:outline-none focus:border-[#34d399] text-gray-200">
+                <input id="cardNumber" type="text" placeholder="Введите номер карты" class="input-card">
             </div>
 
-            <!-- Количество человек -->
-            <div class="bg-[#141b1f] p-5 rounded-2xl border border-[#1e2930] flex justify-between items-center">
+            <div class="card-box counter-box">
                 <div>
-                    <label class="block text-xs uppercase tracking-wider font-semibold text-gray-400">На скольких делим?</label>
-                    <span class="text-sm text-gray-500">Включая вас</span>
+                    <label class="label" style="margin: 0;">На скольких делим?</label>
                 </div>
-                <div class="flex items-center gap-4 bg-[#0b0f12] p-1.5 rounded-xl border border-[#1e2930]">
-                    <button id="minusBtn" class="bg-[#141b1f] text-white w-8 h-8 rounded-lg flex items-center justify-center font-bold text-xl active:scale-90">-</button>
-                    <span id="peopleCount" class="font-bold text-lg px-2">2</span>
-                    <button id="plusBtn" class="bg-[#141b1f] text-white w-8 h-8 rounded-lg flex items-center justify-center font-bold text-xl active:scale-90">+</button>
+                <div class="counter-controls">
+                    <button id="minusBtn" class="count-btn">-</button>
+                    <span id="peopleCount" style="font-weight: bold; font-size: 18px;">2</span>
+                    <button id="plusBtn" class="count-btn">+</button>
                 </div>
             </div>
 
-            <!-- Блок с результатом расчета -->
-            <div class="bg-[#162220] p-6 rounded-2xl border border-[#233531] text-center shadow-lg shadow-[#34d399]/5">
-                <span class="text-xs uppercase tracking-wider font-semibold text-gray-400 block mb-1">С каждого человека:</span>
-                <span id="resultDisplay" class="text-4xl font-extrabold text-[#34d399]">0.00 ₴</span>
+            <div class="result-box">
+                <label class="label">С каждого человека:</label>
+                <span id="resultDisplay" style="font-size: 36px; font-weight: 800; color: #34d399;">0.00 ₴</span>
             </div>
-        </main>
 
-        <button id="shareBtn" class="w-full bg-[#9bf0cb] text-[#0b0f12] font-bold rounded-xl py-4 transition-transform active:scale-98 mt-6 flex items-center justify-center gap-2">
-            <i data-lucide="copy" class="w-5 h-5"></i>
-            Скопировать счет для друзей
-        </button>
+            <button id="shareBtn" class="share-btn">Скопировать счет</button>
+        </div>
     </div>
 
     <script>
-        lucide.createIcons();
-
-        // Навигация между экранами
         const mainScreen = document.getElementById('mainScreen');
         const calcScreen = document.getElementById('calcScreen');
         const manualBtn = document.getElementById('manualBtn');
         const backBtn = document.getElementById('backBtn');
 
-        manualBtn.addEventListener('click', () => {
-            mainScreen.classList.add('hidden');
-            calcScreen.classList.remove('hidden');
-        });
+        manualBtn.addEventListener('click', () => { mainScreen.classList.add('hidden'); calcScreen.classList.remove('hidden'); });
+        backBtn.addEventListener('click', () => { calcScreen.classList.add('hidden'); mainScreen.classList.remove('hidden'); });
 
-        backBtn.addEventListener('click', () => {
-            calcScreen.classList.add('hidden');
-            mainScreen.classList.remove('hidden');
-        });
-
-        // Логика камеры
         const cameraBtn = document.getElementById('cameraBtn');
         const videoContainer = document.getElementById('videoContainer');
         const video = document.getElementById('webcam');
         const captureBtn = document.getElementById('captureBtn');
 
+        const playSound = (type) => {
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator(); const gain = ctx.createGain();
+                osc.connect(gain); gain.connect(ctx.destination);
+                if (type === 'click') {
+                    osc.type = 'triangle'; osc.frequency.setValueAtTime(800, ctx.currentTime);
+                    gain.gain.setValueAtTime(0.3, ctx.currentTime); osc.start(); osc.stop(ctx.currentTime + 0.1);
+                } else if (type === 'tick') {
+                    osc.type = 'sine'; osc.frequency.setValueAtTime(600, ctx.currentTime);
+                    gain.gain.setValueAtTime(0.1, ctx.currentTime); osc.start(); osc.stop(ctx.currentTime + 0.05);
+                }
+            } catch (e) {}
+        };
+
         cameraBtn.addEventListener('click', async () => {
             try {
-                if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
-video.srcObject = stream;
-video.play();
-cameraBtn.classList.add('hidden');
-videoContainer.classList.remove('hidden');
-} else {
-alert('Доступ к камере не поддерживается вашим устройством.');
-}
-} catch (error) {
-alert('Пожалуйста, разрешите доступ к камере в настройках браузера.');
-}
+                if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                    const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } }); 
+video.srcObject = stream; video.play();
+cameraBtn.classList.add('hidden'); videoContainer.classList.remove('hidden');
+} else { alert('Камера не поддерживается.'); }
+} catch (error) { alert('Разрешите доступ к камере.'); }
 });
 captureBtn.addEventListener('click', () => {
-playSound('click');
-captureBtn.innerText = 'Сканирование...';
-captureBtn.disabled = true;
+playSound('click'); captureBtn.innerText = 'Сканирование...'; captureBtn.disabled = true;
 let count = 0;
 const ticker = setInterval(() => {
-    playSound('tick');
-    count++;
-    if (count >= 10) {
-        clearInterval(ticker);
-        videoContainer.classList.add('hidden');
-        mainScreen.classList.add('hidden');
-        calcScreen.classList.remove('hidden');
-        captureBtn.innerText = 'Сделать снимок';
-        captureBtn.disabled = false;
-    }
+playSound('tick'); count++;
+if (count >= 10) {
+clearInterval(ticker); videoContainer.classList.add('hidden');
+mainScreen.classList.add('hidden'); calcScreen.classList.remove('hidden');
+captureBtn.innerText = 'Сделать снимок'; captureBtn.disabled = false;
+}
 }, 500);
 });
-// Логика Калькулятора расходов
 const totalInput = document.getElementById('totalAmount');
 const peopleDisplay = document.getElementById('peopleCount');
 const resultDisplay = document.getElementById('resultDisplay');
 const plusBtn = document.getElementById('plusBtn');
 const minusBtn = document.getElementById('minusBtn');
-let peopleCount = 2;
-let selectedBank = 'Monobank';
+let peopleCount = 2; let selectedBank = 'Monobank';
 const calculate = () => {
 const total = parseFloat(totalInput.value) || 0;
-const perPerson = total / peopleCount;
-resultDisplay.innerText = perPerson.toFixed(2) + ' ₴';
+resultDisplay.innerText = (total / peopleCount).toFixed(2) + ' ₴';
 };
 totalInput.addEventListener('input', calculate);
-plusBtn.addEventListener('click', () => {
-peopleCount++;
-peopleDisplay.innerText = peopleCount;
-calculate();
-});
-minusBtn.addEventListener('click', () => {
-if (peopleCount > 1) {
-peopleCount--;
-peopleDisplay.innerText = peopleCount;
-calculate();
-}
-});
-// Выбор банка
-const monoBtn = document.getElementById('monoBtn');
-const privatBtn = document.getElementById('privatBtn');
-monoBtn.addEventListener('click', () => {
-selectedBank = 'Monobank';
-monoBtn.className = "border-2 border-[#34d399] bg-[#162220] rounded-xl py-3 flex flex-col items-center gap-1 active:scale-98";
-privatBtn.className = "border-2 border-[#1e2930] bg-transparent rounded-xl py-3 flex flex-col items-center gap-1 active:scale-98";
-});
-privatBtn.addEventListener('click', () => {
-selectedBank = 'Приват24';
-privatBtn.className = "border-2 border-[#34d399] bg-[#162220] rounded-xl py-3 flex flex-col items-center gap-1 active:scale-98";
-monoBtn.className = "border-2 border-[#1e2930] bg-transparent rounded-xl py-3 flex flex-col items-center gap-1 active:scale-98";
-});
-// Кнопка Скопировать счет
-const shareBtn = document.getElementById('shareBtn');
-const cardInput = document.getElementById('cardNumber');
+plusBtn.addEventListener('click', () => { peopleCount++; peopleDisplay.innerText = peopleCount; calculate(); });
+minusBtn.addEventListener('click', () => { if (peopleCount > 1) { peopleCount--; peopleDisplay.innerText = peopleCount; calculate(); } });
+const monoBtn = document.getElementById('monoBtn'); const privatBtn = document.getElementById('privatBtn');
+monoBtn.addEventListener('click', () => { selectedBank = 'Monobank'; monoBtn.classList.add('active'); privatBtn.classList.remove('active'); });
+privatBtn.addEventListener('click', () => { selectedBank = 'Приват24'; privatBtn.classList.add('active'); monoBtn.classList.remove('active'); });
+const shareBtn = document.getElementById('shareBtn'); const cardInput = document.getElementById('cardNumber');
 shareBtn.addEventListener('click', () => {
-const total = parseFloat(totalInput.value) || 0;
-const perPerson = (total / peopleCount).toFixed(2);
-const card = cardInput.value.trim() || '[номер карты не указан]';
-const message = 'Привет! Делим наш общий чек через Сплит-Чек 🧾\n\nКаждый скидывает по: ${perPerson} ₴\nКуда переводить: ${selectedBank}\nНомер карты: ${card}\n\nВсё по-честному! 😉; '
-navigator.clipboard.writeText(message).then(() => {
-alert('Готовый текст счета скопирован в буфер обмена! Просто отправьте его друзьям в чат.');
-}).catch(() => {
-alert('Не удалось скопировать автоматически. Скопируйте текст вручную.');
-});
-const playSound = (type) => {
-    try {
-        const ctx = new (window.AudioContext || window.webkitAudioContext)();
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        if (type === 'click') {
-            osc.type = 'triangle';
-            osc.frequency.setValueAtTime(800, ctx.currentTime);
-            osc.frequency.exponentialRampToValueAtTime(100, ctx.currentTime + 0.1);
-            gain.gain.setValueAtTime(0.3, ctx.currentTime);
-            gain.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.1);
-            osc.start(); osc.stop(ctx.currentTime + 0.1);
-        } else if (type === 'tick') {
-            osc.type = 'sine';
-            osc.frequency.setValueAtTime(600, ctx.currentTime);
-            gain.gain.setValueAtTime(0.1, ctx.currentTime);
-            gain.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.05);
-            osc.start(); osc.stop(ctx.currentTime + 0.05);
-        }
-    } catch (e) { console.log(e); }
-};
+    const total = parseFloat(totalInput.value) || 0; const card = cardInput.value.trim() || '[не указан]';
+    const msg = `Привет! Делим чек 🧾\nКаждый скидывает по: ${(total / peopleCount).toFixed(2)} ₴\nБанк: ${selectedBank}\nКарта: ${card}\nВсё по-честному! 😉`;
+    navigator.clipboard.writeText(msg).then(() => alert('Скопировано! Отправьте друзьям.'));
 });
