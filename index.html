@@ -367,7 +367,7 @@
                 const formData = new FormData();
                 formData.append('document', blob, 'receipt.jpg');
 
-                const response = await fetch('https://mindee.net', {
+                const response = await fetch('https://api.mindee.net/v1/products/mindee/expense_receipts/v5/predict', {
                     method: 'POST',
                     headers: {
                         'Authorization': 'Token md_reDZGiwzh8XVFkH98LdvNPvbVNHaXWHa16T_MOEdwX4'
@@ -402,7 +402,7 @@
     function resetCaptureBtn() {
         captureBtn.innerText = 'Сделать снимок';
         captureBtn.disabled = false;
-        cameraBtn.style.display = 'flex';
+        cameraBtn.style.display = 'block';
     }
 
     const totalInput = document.getElementById('totalAmount');
@@ -435,5 +435,3 @@
 </script>
 </body>
 </html>
-
-
