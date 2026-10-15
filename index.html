@@ -5,29 +5,214 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Сплит-Чек — всё по-честному</title>
     <style>
-        body { background-color: #0b0f12; color: #ffffff; min-height: 100vh; font-family: sans-serif; margin: 0; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; box-sizing: border-box; }
-        .container { flex: 1; display: flex; flex-direction: column; justify-content: space-between; width: 100%; max-width: 440px; margin: 0 auto; }
-        .header { display: flex; justify-content: space-between; align-items: center; width: 100%; padding-top: 16px; }
-        .logo-box { background-color: #162220; padding: 10px; border-radius: 12px; border: 1px solid #233531; display: flex; align-items: center; }
-        .badge { background-color: #141b1f; padding: 6px 12px; border-radius: 9999px; border: 1px solid #1e2930; font-size: 12px; color: #9ca3af; }
-        .main-content { margin: auto 0; display: flex; flex-direction: column; align-items: center; text-align: center; }
-        .title { font-size: 36px; font-weight: 800; line-height: 1.2; margin-bottom: 16px; }
-        .mint-text { color: #34d399; }
-        .desc { color: #9ca3af; font-size: 16px; max-width: 320px; margin: 0 auto 32px; }
-        .camera-btn { background-color: #9bf0cb; color: #0b0f12; border-radius: 32px; padding: 32px; border: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; cursor: pointer; box-shadow: 0 10px 15px -3px rgba(155, 240, 203, 0.1); font-weight: bold; width: 100%; box-sizing: border-box; }
-        .manual-btn { width: 100%; background-color: #141b1f; border: 1px solid #1e2930; border-radius: 16px; padding: 20px; color: #e5e7eb; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 12px; cursor: pointer; margin-bottom: 24px; box-sizing: border-box; }
-        .card-box { background-color: #141b1f; padding: 20px; border-radius: 16px; border: 1px solid #1e2930; margin-bottom: 16px; width: 100%; box-sizing: border-box; text-align: left; }
-        .input-sum { width: 100%; background: transparent; border: none; color: #34d399; font-size: 30px; font-weight: bold; outline: none; }
-        .grid-banks { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
-        .bank-btn { border: 2px solid #1e2930; background: transparent; color: white; border-radius: 12px; padding: 12px; cursor: pointer; display: flex; flex-direction: column; align-items: center; width: 100%; box-sizing: border-box; }
-        .bank-btn.active { border-color: #34d399; background-color: #162220; }
-        .input-card { width: 100%; background-color: #0b0f12; border: 1px solid #1e2930; border-radius: 12px; padding: 12px; color: white; margin-top: 12px; box-sizing: border-box; }
-        .counter-box { display: flex; justify-content: space-between; align-items: center; }
-        .counter-controls { display: flex; align-items: center; gap: 16px; background-color: #0b0f12; padding: 6px; border-radius: 12px; border: 1px solid #1e2930; }
-        .count-btn { background-color: #141b1f; color: white; border: none; width: 32px; height: 32px; border-radius: 8px; font-size: 20px; font-weight: bold; cursor: pointer; }
-        .result-box { background-color: #162220; padding: 24px; border-radius: 16px; border: 1px solid #233531; text-align: center; width: 100%; box-sizing: border-box; }
-        .share-btn { width: 100%; background-color: #9bf0cb; color: #0b0f12; font-weight: bold; border-radius: 12px; padding: 16px; border: none; cursor: pointer; margin-top: 24px; font-size: 16px; }
-        .label { font-size: 12px; text-transform: uppercase; font-weight: 600; color: #9ca3af; margin-bottom: 8px; display: block; }
+        body {
+            background-color: #0b0f12;
+            color: #ffffff;
+            min-height: 100vh;
+            font-family: sans-serif;
+            margin: 0;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-sizing: border-box;
+        }
+        .container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 440px;
+            margin: 0 auto;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding-top: 16px;
+        }
+        .logo-box {
+            background-color: #162220;
+            padding: 10px;
+            border-radius: 12px;
+            border: 1px solid #233531;
+            display: flex;
+            align-items: center;
+        }
+        .badge {
+            background-color: #141b1f;
+            padding: 6px 12px;
+            border-radius: 9999px;
+            border: 1px solid #1e2930;
+            font-size: 12px;
+            color: #9ca3af;
+        }
+        .main-content {
+            margin: auto 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .title {
+            font-size: 36px;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 16px;
+        }
+        .mint-text {
+            color: #34d399;
+        }
+        .desc {
+            color: #9ca3af;
+            font-size: 16px;
+            max-width: 320px;
+            margin: 0 auto 32px;
+        }
+        .camera-btn {
+            background-color: #9bf0cb;
+            color: #0b0f12;
+            border-radius: 32px;
+            padding: 32px;
+            border: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            cursor: pointer;
+            box-shadow: 0 10px 15px -3px rgba(155, 240, 203, 0.1);
+            font-weight: bold;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .manual-btn {
+            width: 100%;
+            background-color: #141b1f;
+            border: 1px solid #1e2930;
+            border-radius: 16px;
+            padding: 20px;
+            color: #e5e7eb;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            cursor: pointer;
+            margin-bottom: 24px;
+            box-sizing: border-box;
+        }
+        .card-box {
+            background-color: #141b1f;
+            padding: 20px;
+            border-radius: 16px;
+            border: 1px solid #1e2930;
+            margin-bottom: 16px;
+            width: 100%;
+            box-sizing: border-box;
+            text-align: left;
+        }
+        .input-sum {
+            width: 100%;
+            background: transparent;
+            border: none;
+            color: #34d399;
+            font-size: 30px;
+            font-weight: bold;
+            outline: none;
+        }
+        .grid-banks {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 12px;
+        }
+        .bank-btn {
+            border: 2px solid #1e2930;
+            background: transparent;
+            color: white;
+            border-radius: 12px;
+            padding: 12px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .bank-btn.active {
+            border-color: #34d399;
+            background-color: #162220;
+        }
+        .input-card {
+            width: 100%;
+            background-color: #0b0f12;
+            border: 1px solid #1e2930;
+            border-radius: 12px;
+            padding: 12px;
+            color: white;
+            margin-top: 12px;
+            box-sizing: border-box;
+        }
+        .counter-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .counter-controls {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background-color: #0b0f12;
+            padding: 6px;
+            border-radius: 12px;
+            border: 1px solid #1e2930;
+        }
+        .count-btn {
+            background-color: #141b1f;
+            color: white;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .result-box {
+            background-color: #162220;
+            padding: 24px;
+            border-radius: 16px;
+            border: 1px solid #233531;
+            text-align: center;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .share-btn {
+            width: 100%;
+            background-color: #9bf0cb;
+            color: #0b0f12;
+            font-weight: bold;
+            border-radius: 12px;
+            padding: 16px;
+            border: none;
+            cursor: pointer;
+            margin-top: 24px;
+            font-size: 16px;
+        }
+        .hidden {
+            display: none !important;
+        }
+        .label {
+            font-size: 12px;
+            text-transform: uppercase;
+            font-weight: 600;
+            color: #9ca3af;
+            margin-bottom: 8px;
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -47,7 +232,7 @@
                 <h1 class="title">Делим чек.<br><span class="mint-text">Сохраняем дружбу.</span></h1>
                 <p class="desc">Справедливо распределим расходы за пару касаний.</p>
 
-                <div id="videoContainer" style="display: none; width: 100%; background-color: #141b1f; border-radius: 16px; overflow: hidden; margin-bottom: 16px; aspect-ratio: 4/3; position: relative;">
+                <div id="videoContainer" class="hidden" style="width: 100%; background-color: #141b1f; border-radius: 16px; overflow: hidden; margin-bottom: 16px; aspect-ratio: 4/3; position: relative;">
                     <video id="webcam" autoplay playsinline muted style="width: 100%; height: 100%; object-fit: cover;"></video>
                     <button id="captureBtn" style="position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%); background-color: #34d399; color: #0b0f12; font-weight: bold; padding: 8px 24px; border: none; border-radius: 9999px; cursor: pointer;">Сделать снимок</button>
                 </div>
@@ -64,7 +249,7 @@
         </div>
 
         <!-- ЭКРАН 2: КАЛЬКУЛЯТОР -->
-        <div id="calcScreen" style="display: none; flex-direction: column; height: 100%;">
+        <div id="calcScreen" class="hidden" style="flex-direction: column; height: 100%;">
             <header style="display: flex; align-items: center; gap: 16px; padding-top: 16px; margin-bottom: 24px;">
                 <button id="backBtn" style="background: #141b1f; border: 1px solid #1e2930; padding: 8px 12px; border-radius: 12px; color: white; cursor: pointer; font-size: 18px;">←</button>
                 <h2 style="margin: 0; font-size: 20px;">Быстрый калькулятор</h2>
@@ -99,78 +284,84 @@
                 </div>
             </div>
 
-            <div class="result-box">
+            ,            <div class="result-box">
                 <label class="label">С каждого человека:</label>
                 <span id="resultDisplay" style="font-size: 36px; font-weight: 800; color: #34d399;">0.00 ₴</span>
             </div>
 
             <button id="shareBtn" class="share-btn">Скопировать счет для друзей</button>
         </div>
-    </div>
 
-    <script>
-        const mainScreen = document.getElementById('mainScreen');
-        const calcScreen = document.getElementById('calcScreen');
-        const manualBtn = document.getElementById('manualBtn');
-        const backBtn = document.getElementById('backBtn');
+const mainScreen = document.getElementById('mainScreen');
+const calcScreen = document.getElementById('calcScreen');
+const manualBtn = document.getElementById('manualBtn');
+const backBtn = document.getElementById('backBtn');
 
-        // Железобетонная навигация через изменение стиля display
-        manualBtn.addEventListener('click', () => { 
-            mainScreen.style.display = 'none'; 
-            calcScreen.style.display = 'flex'; 
-        });
-        backBtn.addEventListener('click', () => { 
-            calcScreen.style.display = 'none'; 
-            mainScreen.style.display = 'flex'; 
-        });
-
-        const cameraBtn = document.getElementById('cameraBtn');
-        const videoContainer = document.getElementById('videoContainer');
-        const video = document.getElementById('webcam');
-        const captureBtn = document.getElementById('captureBtn');
-
-        cameraBtn.addEventListener('click', async () => {
-            try {
-                if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-                    const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
-                    video.srcObject = stream;
-                    video.play();
-                    cameraBtn.style.display = 'none';
-                    videoContainer.style.display = 'block';
-                } else { alert('Камера не поддерживается вашим устройством.'); }
-            } catch (error) { alert('Пожалуйста, разрешите доступ к камере в настройках браузера.'); }
-        });
-
-        captureBtn.addEventListener('click', () => {
-            captureBtn.innerText = 'Сканирование...';
-            captureBtn.disabled = true;
-            setTimeout(() => {
-                videoContainer.style.display = 'none';
-                mainScreen.style.display = 'none';
-calcScreen.style.display = 'flex';
-captureBtn.innerText = 'Сделать снимок';
-captureBtn.disabled = false;
-}, 2000);
+manualBtn.addEventListener('click', () => {
+    mainScreen.classList.add('hidden');
+    calcScreen.classList.remove('hidden');
 });
+backBtn.addEventListener('click', () => {
+    calcScreen.classList.add('hidden');
+    mainScreen.classList.remove('hidden');
+});
+
+const cameraBtn = document.getElementById('cameraBtn');
+const videoContainer = document.getElementById('videoContainer');
+const video = document.getElementById('webcam');
+const captureBtn = document.getElementById('captureBtn');
+
+cameraBtn.addEventListener('click', async () => {
+    try {
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
+            video.srcObject = stream;
+            video.play();
+            cameraBtn.classList.add('hidden');
+            videoContainer.classList.remove('hidden');
+        } else { alert('Камера не поддерживается вашим устройством.'); }
+    } catch (error) { alert('Пожалуйста, разрешите доступ к камере в настройках браузера.'); }
+});
+
+captureBtn.addEventListener('click', () => {
+    captureBtn.innerText = 'Сканирование...';
+    captureBtn.disabled = true;
+    setTimeout(() => {
+        videoContainer.classList.add('hidden');
+        mainScreen.classList.add('hidden');
+        calcScreen.classList.remove('hidden');
+        captureBtn.innerText = 'Сделать снимок';
+        captureBtn.disabled = false;
+    }, 2000);
+});
+
 const totalInput = document.getElementById('totalAmount');
 const peopleDisplay = document.getElementById('peopleCount');
 const resultDisplay = document.getElementById('resultDisplay');
 const plusBtn = document.getElementById('plusBtn');
 const minusBtn = document.getElementById('minusBtn');
+
 let peopleCount = 2; let selectedBank = 'Monobank';
+
 const calculate = () => {
-const total = parseFloat(totalInput.value) || 0;
-resultDisplay.innerText = (total / peopleCount).toFixed(2) + ' ₴';
+    const total = parseFloat(totalInput.value) || 0;
+    resultDisplay.innerText = (total / peopleCount).toFixed(2) + ' грн';
 };
+
 totalInput.addEventListener('input', calculate);
 plusBtn.addEventListener('click', () => { peopleCount++; peopleDisplay.innerText = peopleCount; calculate(); });
 minusBtn.addEventListener('click', () => { if (peopleCount > 1) { peopleCount--; peopleDisplay.innerText = peopleCount; calculate(); } });
+
 const monoBtn = document.getElementById('monoBtn'); const privatBtn = document.getElementById('privatBtn');
 monoBtn.addEventListener('click', () => { selectedBank = 'Monobank'; monoBtn.classList.add('active'); privatBtn.classList.remove('active'); });
 privatBtn.addEventListener('click', () => { selectedBank = 'Приват24'; privatBtn.classList.add('active'); monoBtn.classList.remove('active'); });
+
 const shareBtn = document.getElementById('shareBtn'); const cardInput = document.getElementById('cardNumber');
 shareBtn.addEventListener('click', () => {
-const total = parseFloat(totalInput.value) || 0; const card = cardInput.value.trim() || '[не указан]';
-const msg = `Привет! Делим чек 🧾\nКаждый скидывает по: ${(total / peopleCount).toFixed(2)} ₴\nБанк: ${selectedBank}\nКарта: ${card}\nВсё по-честному! 😉`;
-navigator.clipboard.writeText(msg).then(() => alert('Скопировано! Отправьте друзьям.'));
+    const total = parseFloat(totalInput.value) || 0; const card = cardInput.value.trim() || '[не указан]';
+    const msg = `Привет! Делим чек 🧾\nКаждый скидывает по: ${(total / peopleCount).toFixed(2)} грн\nБанк: ${selectedBank}\nКарта: ${card}\nВсё по-честному! 😉`;
+    navigator.clipboard.writeText(msg).then(() => alert('Скопировано! Отправьте друзьям.'));
 });
+</script>
+</body>
+</html>
