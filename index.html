@@ -321,8 +321,8 @@
                 const stream = await navigator.mediaDevices.getUserMedia({ 
                     video: { 
                         facingMode: 'environment',
-                        width: { ideal: 640 },
-                        height: { ideal: 480 }
+                        width: { ideal: 1280 },
+                        height: { ideal: 720 }
                     } 
                 });
                 localStream = stream;
@@ -346,10 +346,9 @@
         }
     });
 
-    captureBtn.addEventListener('click', async () => {
+        captureBtn.addEventListener('click', async () => {
         captureBtn.innerText = 'Сканирование ИИ...';
         captureBtn.disabled = true;
-
         try {
             const canvas = document.createElement('canvas');
             canvas.width = video.videoWidth || 640;
@@ -357,41 +356,44 @@
             const ctx = canvas.getContext('2d');
             ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-            canvas.toBlob(async (blob) => {
-                if (!blob) {
-                    alert('Не удалось захватить кадр с камеры.');
-                    resetCaptureBtn();
-                    return;
-                }
+            const dataUrl = canvas.toDataURL('image/jpeg', 0.8);
+            const base64Data = dataUrl.split(',')[1];
+            
+            const byteCharacters = atob(base64Data);
+            const byteNumbers = new Array(byteCharacters.length);
+            for (let i = 0; i < byteCharacters.length; i++) {
+                byteNumbers[i] = byteCharacters.charCodeAt(i);
+            }
+            const byteArray = new Uint8Array(byteNumbers);
+            const blob = new Blob([byteArray], {type: 'image/jpeg'});
 
-                const formData = new FormData();
-                formData.append('document', blob, 'receipt.jpg');
+            const formData = new FormData();
+            formData.append('document', blob, 'receipt.jpg');
 
-                const response = await fetch('https://api.mindee.net/v1/products/mindee/expense_receipts/v5/predict', {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': 'Token md_reDZGiwzh8XVFkH98LdvNPvbVNHaXWHa16T_MOEdwX4'
-                    },
-                    body: formData
-                });
+            const response = await fetch('https://api.mindee.net/v1/products/mindee/expense_receipts/v5/predict', {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Token md_reDZGiwzh8XVFkH98LdvNPvbVNHaXWHa16T_MOEdwX4'
+                },
+                body: formData
+            });
 
-                if (!response.ok) { throw new Error('Ошибка сервера ИИ'); }
+            if (!response.ok) { throw new Error('Ошибка сервера ИИ'); }
 
-                const result = await response.json();
-                const totalAmount = result.document?.inference?.prediction?.total_amount?.value || 0;
+            const result = await response.json();
+            const totalAmount = result.document?.inference?.prediction?.total_amount?.value || 0;
 
-                document.getElementById('totalAmount').value = totalAmount > 0 ? totalAmount.toFixed(2) : '';
-                calculate();
+            document.getElementById('totalAmount').value = totalAmount > 0 ? totalAmount.toFixed(2) : '';
+            calculate();
 
-                if (localStream) {
-                    localStream.getTracks().forEach(track => track.stop());
-                }
+            if (localStream) {
+                localStream.getTracks().forEach(track => track.stop());
+            }
 
-                videoContainer.style.display = 'none';
-                mainScreen.style.display = 'none';
-                calcScreen.style.display = 'flex';
-                resetCaptureBtn();
-            }, 'image/jpeg', 0.8);
+            videoContainer.style.display = 'none';
+            mainScreen.style.display = 'none';
+            calcScreen.style.display = 'flex';
+            resetCaptureBtn();
 
         } catch (error) {
             alert('Ошибка распознавания чека. Пожалуйста, введите сумму вручную.');
